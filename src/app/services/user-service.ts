@@ -14,27 +14,30 @@ export class UserService {
   user = signal<User | null>(null);
   
   constructor(){
-    this.http.get<string>(env.BACKURL + "/auth/get-cookie", { withCredentials: true }).subscribe({
-      next: token =>{
-        if(token){
-          localStorage.setItem("token", token);
-          this.http.get(env.BACKURL + "/auth/myInfo", { withCredentials: true }).subscribe({
-            next: (data: any) =>{
-              if(data.ok){
-                this.user.set(data.user);
+    if(localStorage.getItem("token")){
+      this.http.get<string>(env.BACKURL + "/auth/get-cookie", { withCredentials: true }).subscribe({
+        next: token =>{
+          if(token){
+            localStorage.setItem("token", token);
+            this.http.get(env.BACKURL + "/auth/myInfo", { withCredentials: true }).subscribe({
+              next: (data: any) =>{
+                if(data.ok){
+                  this.user.set(data.user);
+                }
+              },
+              error: err =>{
+                console.log(err);
               }
-            },
-            error: err =>{
-              console.log(err);
-            }
-          });
+            });
+          }
+        },
+        error: err =>{
+          console.log(err);    
         }
-      },
-      error: err =>{
-        console.log(err);  
-        window.location.href = env.BACKURL + "/auth/login";      
-      }
-    });
+      });
+    }else{
+      window.location.href = env.BACKURL + "/auth/login";
+    }
     
   }
 
