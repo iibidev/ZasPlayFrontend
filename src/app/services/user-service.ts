@@ -12,7 +12,6 @@ import { SocketService } from './socket-service';
 export class UserService {
 
   private http = inject(HttpClient);
-  private socketService = inject(SocketService);
   user = signal<User | null>(null);
   
   constructor(){
@@ -24,7 +23,7 @@ export class UserService {
       },
       error: err =>{
         console.log(err);
-        window.location.href = env.BACKURL + "/auth/login";
+        //window.location.href = env.BACKURL + "/auth/login";
       }
     });
   }
