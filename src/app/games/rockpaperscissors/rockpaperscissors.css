@@ -1,0 +1,187 @@
+.phase0Title{
+    font-weight: 600;
+    font-size: 24px;
+    text-shadow: 0px 0px 9px black;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hands{
+    width: 100vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    padding-inline: 30px;
+}
+
+.hand{
+    width: fit-content;
+    padding: 10px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ff5f6d, #ffc371);
+    cursor: pointer;
+    transition: ease .2s;
+}
+
+.hands:hover .hand{
+    filter: brightness(50%);
+}
+
+.hands .hand:hover{
+    filter: none;
+}
+
+.hand__img{
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 4/3;
+    object-fit: contain;
+}
+
+.phase1Game{
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.userPic{
+    width: 200px;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.myPlay, .othersPlay{
+    width: 160px;
+    aspect-ratio: 4/3;
+    object-fit: contain;
+    position: absolute;
+    bottom: -20px;
+    right: -100px;
+}
+
+.othersPlay{
+    right: unset;
+    left: -100px;
+    transform: scaleX(-1);
+}
+
+.phase1Title{
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 0px 0px 4px black;
+    margin-bottom: 40px;
+}
+
+.playAnimation{
+    position: relative;
+    animation: leftRight 1s ease-out forwards;
+}
+
+.playAnimation--reverse{
+    animation: rightLeft 1s ease-out forwards;
+}
+
+.phase2Title{
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 0px 0px 4px black;
+}
+
+.emojiResult{
+    width: 95%;
+    max-width: 270px;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+    margin-top: 20px;
+}
+
+@media(width < 900px){
+
+    .phase1Game{
+        justify-content: space-between;
+        padding-inline: 60px;
+    }
+
+    .userPic{
+        width: 160px;
+    }
+
+    .myPlay, .othersPlay{
+        width: 120px;
+        bottom: -20px;
+        right: -70px;
+    }
+
+    .othersPlay{
+        left: -70px;
+    }
+}
+
+@media(width < 600px){
+
+    .phase1Game{
+        justify-content: space-between;
+        padding-inline: 30px;
+    }
+
+    .userPic{
+        width: 130px;
+    }
+
+    .myPlay, .othersPlay{
+        width: 90px;
+        bottom: -10px;
+        right: -50px;
+    }
+
+    .othersPlay{
+        left: -50px;
+    }
+}
+
+@media(width < 450px){
+
+    .phase1Game{
+        justify-content: space-between;
+        padding-inline: 20px;
+    }
+
+    .userPic{
+        width: 100px;
+    }
+
+    .myPlay, .othersPlay{
+        width: 70px;
+        bottom: 0;
+        right: -40px;
+    }
+
+    .othersPlay{
+        left: -40px;
+    }
+}
+
+@keyframes leftRight {
+    from{
+        transform: translateX(-100%);
+    }
+
+    to{
+        transform: translateX(0);
+    }
+}
+
+@keyframes rightLeft {
+    from{
+        transform: translateX(100%);
+    }
+
+    to{
+        transform: translateX(0);
+    }
+}

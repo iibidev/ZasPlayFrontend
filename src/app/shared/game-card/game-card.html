@@ -1,0 +1,16 @@
+<div class="gameCard" (click)="showGameInfo = true;" [style]="`background-image: url('${game.thumbnail}');`">
+    <div class="gameCard__info">
+        <img class="gameCard__icon" [src]="game.icon" [alt]="`icono de ${game.name}`">
+        <div class="info__text">
+            <h3 class="gameCard__name">{{ game.name }}</h3>
+            <p class="gameCard__desc">{{ game.description }}</p>
+        </div>
+    </div>
+    @if (game.isInDevelopment) {
+        <span class="gameCard__soon">¡PRÓXIMAMENTE!</span>
+    }
+</div>
+
+@if (showGameInfo) {
+    <app-game-info [game]="game" (cerrar)="showGameInfo = false"></app-game-info>   
+}

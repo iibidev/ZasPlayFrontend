@@ -1,0 +1,60 @@
+@if (game) {
+    <div class="fondoNegro" [style]="`background-image: url('${ gameBackground }')`"></div>
+    <div class="container">
+        @if(game.isInDevelopment && !userService.user()!.dev){
+            <h2 class="notDevelopedTitle">¡Juego en desarrollo!</h2>
+            <p class="notDevelopedDesc">Pronto podrás jugarlo, prueba los demás juegos que están disponibles y gana a tus amigos.</p>
+            <a routerLink="/games" class="gamesBtn">ver juegos</a>
+        }@else if (showLoadingScreen) {
+            <div class="loader">
+                <img class="loader__icon" [src]="game.icon" [alt]="`Icono de ${ game.name }`">
+                <h2 class="loader__title">{{ game.name }}</h2>
+                <app-loader2></app-loader2>
+                @if (joiningToRoom()) {
+                    <p>Uniendose a la sala</p>
+                }
+            </div>
+        }@else {
+            @if (!roomCode) {
+                <div class="rooms">
+                    <h2 class="rooms__title">Salas del juego<br>{{ game.name }}</h2>
+
+                    <div class="rooms__list">
+                        <div class="rooms__header">
+                            <button class="header__createBtn" (click)="create()">Crear sala</button>
+                            <p class="header__roomNum"><span>{{ rooms.length }}</span> salas</p>
+                        </div>
+                        <div class="rooms__rooms">
+                            @for (room of rooms; track $index) {
+                                <div class="rooms__room">
+                                    <div class="room__info">
+                                        <img class="info__pic" [src]="room.players[0].user.profilePic" [alt]="'Foto de ' + room.players[0].user.username">
+                                        <div class="info__data">
+                                            <p style="font-weight: 700;">Sala de {{ room.players[0].user.username }}</p>
+                                            <p style="opacity: .8;">{{ room.players.length + " / " + room.game.max }}</p>
+                                        </div>
+                                    </div>
+                                    <a [classList]="room.players.length >= room.game.max ? 'room__joinBtn room__joinBtn--disabled' : 'room__joinBtn'" [routerLink]="room.code">Unirse</a>
+                                </div>
+                            }@empty {
+                                <p class="rooms_empty">No hay salas por ahora. Crea una e invita a tus amigos</p>
+                            }
+                        </div>
+                        <a routerLink="" class="rooms__exitBtn">Salir</a>
+                    </div>
+                </div>
+            }@else {
+                <app-game-selector [room]="roomInfo"></app-game-selector>           
+            }
+        }
+    </div>
+}@else {
+    <div class="fondoNegro" [style]="`view-transition-name: background-${ gameRoute }`"></div>
+    <app-loader [text]="'Cargando juego...'"></app-loader>
+}
+
+@if (errorMsg) {
+    <div class="modalError">
+        <p>{{ errorMsg }}</p>
+    </div>
+}

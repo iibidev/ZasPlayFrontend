@@ -1,0 +1,12 @@
+@if (gameService.allGames()) {
+    <div class="container">
+        <h1>TODOS LOS JUEGOS</h1>
+        <div class="games">
+            @for (game of gameService.allGames(); track $index) {
+                <app-game-card [game]="game"></app-game-card>
+            }
+        </div>
+    </div>
+}@else {
+    <app-loader [text]="'cargando juegos...'"></app-loader>
+}

@@ -1,1 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-ral);
+    color: var(--color-text-primary);
+}
+
+:root {
+  /* 🎨 Paleta base */
+  --color-bg-dark: #0b0c2a;
+  --color-bg-secondary: #12143c;
+
+  --font-orb: 'Orbitron', sans-serif;
+  --font-ral: 'Raleway', sans-serif;
+
+  /* ⚡ Colores neón */
+  --color-blue-neon: #00f0ff;
+  --color-magenta-neon: #ff3cf9;
+  --color-purple-blend: #7a2ff7;
+
+  /* 📝 Texto */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #cccccc;
+
+  /* ✨ Detalles */
+  --color-accent: #3ac8ff;
+
+  /* 🌈 Gradientes */
+  --gradient-neon: linear-gradient(135deg, var(--color-blue-neon), var(--color-magenta-neon));
+}
+
+body{
+    background: radial-gradient(var(--color-bg-secondary), black 90%);
+    background-attachment: fixed;
+    min-height: 100dvh;
+    overflow-x: hidden;
+}
+

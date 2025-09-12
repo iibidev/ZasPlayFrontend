@@ -1,0 +1,251 @@
+.container{
+    display: flex;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: center;
+    padding-inline: 16px;
+    opacity: 0;
+    animation: opacity .4s ease-out forwards;
+}
+
+.player{
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.player__name{
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.player__pic{
+    width: 100%;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.turnMessage{
+    width: fit-content;
+    text-align: center;
+    border-radius: 999px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-image: url("/candy-trap/lollipop.webp");
+    background-size: cover;
+}
+
+.turnMessage__text{
+    font-size: 24px;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 5px 20px;
+    color: var(--color-purple-blend);
+    background-color: white;
+}
+
+.candies{
+    width: 100%;
+    max-width: 580px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    padding: 10px 60px;
+    border-radius: 10px;
+    background-image: url("/candy-trap/desk.webp");
+    background-size: cover;
+}
+
+.candies__candy{
+    position: relative;
+    width: 100%;
+    max-width: 100px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    filter: drop-shadow(0 0 10px rgba(17, 17, 17, 0.79));
+}
+
+.candies__candy:hover {
+    transform: scale(1.1) rotate(-5deg);
+    filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.981));
+}
+
+.candies__candy--eaten{
+    opacity: 0;
+    cursor: default;
+}
+
+.candy__pic{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.candy__num{
+    position: absolute;
+    top: 45%;
+    left: 51%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.candy__num--poison{
+    color: red;
+}
+
+.background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.744);
+    animation: opacity ease-out .4s forwards;
+}
+
+.background--normalCandy{
+    animation: opacity ease-out .4s forwards,
+    disappear ease-in .4s forwards 4.6s;
+}
+
+.eatenCandy{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    width: 250px;
+    animation: appear ease-out .5s forwards,
+    shake-candy .6s ease-in-out infinite .5s,
+    disappear .5s ease-in forwards 2s;
+}
+
+.eatenCandy__pic{
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+}
+
+.eatenCandy__num{
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.eatenCandy__message{
+    position: absolute;
+    width: 100%;
+    padding-inline: 16px;
+    top: 25%;
+    left: 50%;
+    font-size: 30px;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(-50%);
+    animation: opacity .6s ease-out forwards 2.6s;
+}
+
+.candy{
+    position: absolute;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 250px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    animation: show .5s ease-out forwards 2.5s;
+}
+
+.goingToRoomMsg{
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: opacity .6s ease-out forwards 3s;
+}
+
+@media (width < 900px){
+    .player{
+        display: none;
+    }
+}
+
+@media (width < 500px){
+    .turnMessage{
+        padding: 6px;
+    }
+
+    .turnMessage__text{
+        font-size: 18px;
+    }
+
+    .candies{
+        padding: 10px;
+    }
+
+    .candy__num{
+        font-size: 11px;
+    }
+}
+
+@keyframes opacity {
+    from{
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes appear {
+    from{
+        top: 56%;
+    }
+
+    to{
+        top: 50%;
+    }
+}
+
+@keyframes disappear {
+    from{
+        opacity: 1;
+    }
+
+    to{
+        opacity: 0;
+    }
+}
+
+@keyframes show {
+    from{
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    to{
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes shake-candy {
+    0%   { transform: translate(-50%, -50%) rotate(0deg); }
+    20%  { transform: translate(-50%, -50%) rotate(5deg); }
+    40%  { transform: translate(-50%, -50%) rotate(-5deg); }
+    60%  { transform: translate(-50%, -50%) rotate(4deg); }
+    80%  { transform: translate(-50%, -50%) rotate(-4deg); }
+    100% { transform: translate(-50%, -50%) rotate(0deg); }
+}

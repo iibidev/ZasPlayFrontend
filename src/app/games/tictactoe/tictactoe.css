@@ -1,0 +1,307 @@
+.firstTurn{
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.589);
+    opacity: 0;
+    animation: opacity .4s ease-out forwards,
+            reverseOpacity .4s ease-in forwards 8.4s;
+}
+
+.firstTurn__playerAnim{
+    scale: 0;
+    animation: show .5s ease forwards,
+            disappear .5s ease-in forwards 4.7s;
+}
+
+.firstTurn__title{
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.firstTurn__image{
+    width: 150px;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.firstTurn__username{
+    font-size: 23px;
+    text-align: center;
+}
+
+.firstTurn__pane{
+    position: absolute;
+    top: 50%;
+    right: -100%;
+    transform: translateY(-50%);
+    width: 100%;
+    padding-block: 45px;
+    background: var(--gradient-neon);
+    animation: rtl 4s ease-out forwards;
+    animation-delay: .7s;
+}
+
+.pane__text{
+    text-align: center;
+    font-size: 35px;
+    font-weight: 700;
+    animation: ltr 4s ease-out forwards;
+    animation-delay: .7s;
+
+    @media (width < 500px) {
+        font-size: 28px;
+    }
+}
+
+.game{
+    width: 100vw;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-inline: 16px;
+    animation: opacity .4s ease-out forwards;
+}
+
+.game__turns{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.turns__player{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.currentTurn{
+    background: var(--gradient-neon);
+
+    & .player__name{
+        color: white;
+    }
+}
+
+.player__name{
+    font-weight: 600;
+    color: black;
+}
+
+.player__icon{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.player__icon--x{
+    color: #ff4444;
+}
+
+.player__icon--o{
+    color: #44aaff;
+}
+
+.game__grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.grid__position{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: white;
+    cursor: pointer;
+}
+
+svg {
+  width: 80%;
+  height: 80%;
+}
+
+.icon-x line {
+  stroke: #ff4444;
+}
+
+.icon-o circle {
+  stroke: #44aaff; 
+}
+
+.icon-x line,
+.icon-o circle {
+  stroke-width: 10;
+  fill: none;
+  stroke-dasharray: 300;   /* largo aproximado del trazo */
+  stroke-dashoffset: 300;  /* empieza oculto */
+  animation: draw 0.5s linear forwards;
+}
+
+.background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.521);
+    animation: opacity .4s ease-out forwards;
+}
+
+.finishPane{
+    width: 90%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.finishPane__title{
+    font-family: var(--font-orb);
+    font-size: 24px;
+    color: black;
+}
+
+.finishPane__title--win{
+    color: green;
+}
+
+.finishPane__title--lost{
+    color: #ff4444;
+}
+
+.finishPane__text{
+    color: black;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.finishPane__gamesWon{
+    position: relative;
+    margin-top: 10px;
+    & *{
+        font-family: var(--font-orb);
+    }
+}
+
+.gamesWon__number{
+    font-size: 35px;
+    color: black;
+}
+
+.gamesWon__plus{
+    position: absolute;
+    top: 0;
+    right: -25px;
+    color: grey;
+}
+
+.gamesWon__plus--win{
+    color: green;
+}
+
+.finishPane__back{
+    color: black;
+    margin-top: 30px;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0; /* revela el trazo */
+  }
+}
+
+
+@keyframes opacity {
+    from{
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes reverseOpacity {
+    from{
+        opacity: 1;
+    }
+
+    to{
+        opacity: 0;
+    }
+}
+
+@keyframes show {
+    from{
+        scale: 0;
+    }
+
+    to{
+        scale: 1;
+    }
+}
+
+@keyframes disappear {
+    from{
+        scale: 1;
+    }
+
+    to{
+        scale: 0;
+    }
+}
+
+@keyframes rtl {
+    0%{
+        right: -100%;
+    }
+
+    20%{
+        right: 0;
+    }
+
+    80%{
+        right: 0;
+        opacity: 1;
+    }
+
+    100%{
+        right: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes ltr {
+    0%{
+        transform: translateX(0);
+    }
+
+    100%{
+        transform: translateX(-140px);
+    }
+}

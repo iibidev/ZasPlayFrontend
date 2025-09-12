@@ -1,0 +1,71 @@
+@switch (gamePhase) {
+    @case (0) {
+        @if (!playSelected) {
+            <h3 class="phase0Title">¡Rápido, elige tu arma!</h3>
+            <div class="hands">
+                <div class="hand" (click)="makePlay(0)">
+                    <img class="hand__img" src="/rps/rock.webp" alt="Piedra">
+                </div>
+                <div class="hand" (click)="makePlay(1)">
+                    <img class="hand__img" src="/rps/paper.webp" alt="Papel">
+                </div>
+                <div class="hand" (click)="makePlay(2)">
+                    <img class="hand__img" src="/rps/scissors.webp" alt="Tijeras">
+                </div>
+            </div>
+        }@else {
+            <p class="phase0Title">Esperando a que el otro jugador elija su arma...</p>
+        }
+    }
+    @case (1) {
+        <p class="phase1Title">¡Piedra papel tijeras!</p>
+        <div class="phase1Game">
+            <div class="playAnimation">
+                <img [src]="userService.user()?.profilePic" class="userPic">
+                @switch (myPlay) {
+                    @case (0) {
+                        <img class="myPlay" src="/rps/rock.webp">
+                    }
+                    @case (1) {
+                        <img class="myPlay" src="/rps/paper.webp">
+                    }
+                    @case (2) {
+                        <img class="myPlay" src="/rps/scissors.webp">
+                    }
+                }
+            </div>
+
+            <div class="playAnimation--reverse">
+                <img [src]="otherPlayer?.user?.profilePic" class="userPic">
+                @switch (otherPlayersPlay) {
+                    @case (0) {
+                        <img class="othersPlay" src="/rps/rock.webp">
+                    }
+                    @case (1) {
+                        <img class="othersPlay" src="/rps/paper.webp">
+                    }
+                    @case (2) {
+                        <img class="othersPlay" src="/rps/scissors.webp">
+                    }
+                }
+            </div>
+        </div>
+    }
+    @case (2) {
+        @switch (result) {
+            @case (0) {
+                <p class="phase2Title">¡Empate!</p>
+            }
+
+            @case (1) {
+                <p class="phase2Title">¡Has ganado!</p>
+                <img src="/rps/winEmoji.webp" class="emojiResult">
+            }
+
+            @case (2) {
+                <p class="phase2Title">¡Has perdido!</p>
+                <img src="/rps/lostEmoji.webp" class="emojiResult">
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+@if (topGames && bannerGames) {
+    <div class="container">
+        <div class="banner" #banner>
+            @for (game of bannerGames; track game._id) {
+                <div (click)="seeInfo(game)" class="banner__game" [style]="`background-image: url('${game.background}');`">
+                    <img [src]="game.icon" class="banner__icon" [alt]="`Icono del juego ${game.name}`">
+                    <div class="banner__info">
+                        <h2 class="banner__name">{{ game.name }}</h2>
+                        <p class="banner__desc">{{ game.description }}</p>
+                        <button class="banner__seeInfo">Ver</button>
+                    </div>
+                    @if (game.isInDevelopment) {
+                        <span class="banner__development">¡próximamente!</span>
+                    }
+                </div>
+            }
+        </div>
+
+        <h1>JUEGOS TOP</h1>
+        <div class="topGames">
+            @for (game of topGames; track $index) {
+                @if (game) {
+                    <div (click)="seeInfo(game)" [class]="'topGames__game game' + ($index + 1)" [style]="`background-image: url('${game.thumbnail}');`">
+                        <div class="game__info">
+                            <img class="game__icon" [src]="game.icon" [alt]="`icono de ${game.name}`">
+                            <div class="info__text">
+                                <h3 class="game__name">{{ game.name }}</h3>
+                                <p class="game__desc">{{ game.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                }@else {
+                    <div [class]="'topGames__game topGames__noGame game' + ($index + 1)">
+                        <span>???</span>
+                    </div>
+                }
+            }
+        </div>
+
+        @if (gamesInDevelopment.length > 0) {
+            <h1>PRÓXIMAMENTE</h1>
+            <div class="inDevelopment">
+                @for (game of gamesInDevelopment; track $index) {
+                    <app-game-card [game]="game"></app-game-card>
+                }
+            </div>
+        }
+
+        <footer>
+            <p>ZasPlay es un proyecto personal creado con fines educativos y sin ánimo de lucro.  
+        Algunos juegos pueden ser réplicas inspiradas en títulos existentes, utilizados únicamente como homenaje o demostración técnica.  
+        Si eres el creador de alguno de los juegos originales y deseas contactar, no dudes en hacerlo.</p>
+        </footer>
+    </div>
+}@else {
+    <app-loader [text]="'Cargando...'"></app-loader>
+}
+
+@if (showGameInfo) {
+    <app-game-info [game]="selectedGame" (cerrar)="showGameInfo = false"></app-game-info>   
+}

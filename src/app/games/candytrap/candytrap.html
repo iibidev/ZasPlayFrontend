@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="player">
+        <p class="player__name">Tú</p>
+        <img class="player__pic" [src]="me!.profilePic" [alt]="`foto de perfil ${me!.username}`">
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div class="turnMessage">
+            @if (gamePhase === 0) {
+                <p class="turnMessage__text">{{ poisonedACandy ? 'Espera a que tu oponente ponga su trampa...' : 'Elige un caramelo para envenenar' }}</p>
+            }@else {
+                <p class="turnMessage__text">{{ is_myTurn ? '¡Es tu turno, cuidado al elegir!' : `¡Es el turno de ${opponent.username}!` }}</p>
+            }
+        </div>
+        <div class="candies">
+            @for (c of candies; track $index) {
+                <div [classList]="c.eaten ? 'candies__candy candies__candy--eaten' : 'candies__candy'" (click)="eatCandy($index)">
+                    <img class="candy__pic" src="/candy-trap/candy.webp">
+                    <span [classList]="c.poison && c.who == me!._id ? 'candy__num candy__num--poison' : 'candy__num'">{{ $index + 1 }}</span>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="player">
+        <p class="player__name">{{ opponent.username }}</p>
+        <img class="player__pic" [src]="opponent!.profilePic" [alt]="`foto de perfil ${opponent!.username}`">
+    </div>
+</div>
+
+@if (showEatCandyAnimation) {
+    <div [classList]="eatenCandy.poisoned ? 'background' : 'background background--normalCandy'">
+        <div class="eatenCandy">
+            <img class="eatenCandy__pic" src="/candy-trap/candy.webp">
+            <span class="eatenCandy__num">{{ eatenCandy.num + 1 }}</span>
+        </div>
+        @if (eatenCandy.poisoned) {
+            <p class="eatenCandy__message">{{ eatenPoisonedCandyMessage }}</p>
+            <img class="candy" src="/candy-trap/poisonedCandy.webp">
+            <div class="goingToRoomMsg">
+                <p>Volviendo a la sala</p>
+                <app-loader2></app-loader2>
+            </div>
+        }@else{
+            <p class="eatenCandy__message">{{ eatenSafeCandyMessage }}</p>
+            <img class="candy" src="/candy-trap/normalCandy.webp">
+        }
+    </div>
+}

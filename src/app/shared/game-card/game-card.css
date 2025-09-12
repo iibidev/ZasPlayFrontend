@@ -1,0 +1,71 @@
+.gameCard{
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 10px;
+    background-size: cover;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    animation: backMove 9s ease alternate-reverse infinite;
+    transition: ease .3s;
+
+    &:hover{
+        box-shadow: 0px 0px 10px var(--color-blue-neon);
+    }
+}
+
+.gameCard__info{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 8px;
+    background-color: rgba(0, 0, 0, 0.299);
+    backdrop-filter: blur(5px);
+}
+
+.gameCard__icon{
+    width: 50px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.info__text{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.gameCard__desc{
+    font-size: 13px;
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;       /* Número de líneas visibles */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.gameCard__soon{
+    position: absolute;
+    top: 25px;
+    right: -40px;
+    transform: rotate(45deg);
+    padding: 6px 40px;
+    font-size: 10px;
+    background-color: green;
+}
+
+@keyframes backMove{
+    from{
+        background-position: -200px;
+    }
+
+    to{
+        background-position: 0px;
+    }
+}

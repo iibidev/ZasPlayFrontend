@@ -1,0 +1,10 @@
+<div class="back" (click)="cerrarInfo()">
+</div>
+<div class="gameCard" [style]="`background-image: url('${ game.thumbnail }'); view-transition-name: background-${ game.route }`">
+    <div class="gameCard__info">
+        <img class="gameCard__icon" [src]="game.icon" [alt]="'Icono de ' + game.name">
+        <h3 class="gameCard__name">{{ game.name }}</h3>
+        <p class="gameCard__desc">{{ game.description }}</p>
+        <a class="gameCard__link" [routerLink]="`/games/${game.route}/rooms`">Jugar</a>
+    </div>
+</div>

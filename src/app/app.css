@@ -1,0 +1,101 @@
+.invitation{
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 99999999;
+    background-color: rgb(241, 241, 241);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.516);
+    cursor: pointer;
+    animation: notif ease-out .4s;
+    overflow: hidden;
+
+    &::after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: var(--gradient-neon);
+        animation: perc linear 4s;
+    }
+}
+
+.invitation__gameIcon{
+    width: 80px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.invitation__info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.info__title{
+    font-weight: 700;
+    color: black;
+}
+
+.info__desc{
+    font-weight: 200;
+    font-size: 15px;
+    color: black;
+}
+
+@media(width < 450px){
+    .invitation{
+        right: 50%;
+        transform: translateX(50%);
+        animation: unset;
+        animation: notifMobile ease-out .4s;
+    }
+
+    .invitation__gameIcon{
+        width: 70px;
+    }
+}
+
+@keyframes notif {
+    from{
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes notifMobile {
+    from{
+        opacity: 0;
+        transform: translate(50%, 30px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translate(50%, 0);
+    }
+}
+
+@keyframes perc {
+    from{
+        width: 0%;
+    }
+
+    to{
+        width: 100%;
+    }
+}

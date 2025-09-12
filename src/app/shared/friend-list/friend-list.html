@@ -1,0 +1,87 @@
+<div class="back" (click)="cerrarLista()">
+</div>
+<div class="modal">
+    <h2>Lista de amigos</h2>
+    <div class="modal__search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <input class="search__input" type="text" name="qFriend" id="qFriend" [(ngModel)]="query" (input)="findUsers()" placeholder="Buscar usuario" autocomplete="off">
+    </div>
+    @if (showFriends) {
+        <p class="modal__partText">Tus amigos:</p>
+        <div class="modal__friends">
+            @if (friends) {
+                @for (friend of friends; track friend._id) {
+                    <div class="friends__friend">
+                        <div class="friend__info">
+                            <div style="position: relative;">
+                                <img class="friend__pic" [src]="friend.profilePic" [alt]="'Foto de ' + friend.username">
+                                @if (friend.active) {
+                                    <span class="friend__active"></span>
+                                }
+                            </div>
+                            <div style="display: flex; flex-direction: column; justify-content: center;">
+                                <p class="friend__name">{{ friend.username }}</p>
+                                @if (friend.active) {
+                                    <p class="friend__activeMsg">Activo/a ahora</p>
+                                }
+                            </div>
+                        </div>
+                        @if (mode == 1) {
+                            <a [routerLink]="['/profile', friend._id]" (click)="cerrarLista()" class="friend__profileBtn">Perfil</a>
+                        }@else {
+                            <button #inviteFriendBtn data-id="{{ friend._id }}" (click)="inviteUser(friend._id, inviteFriendBtn)" class="friend__inviteBtn">Invitar</button>
+                        }
+                    </div>
+                }@empty {
+                    <p>No hay amigos añadidos. Busca un usuario y hazte su amigo.</p>
+                }
+            }@else {
+                <app-loader2></app-loader2>
+            }
+        </div>
+    }@else {
+        <p class="modal__partText">Usuarios:</p>
+        <div class="modal__users">
+            @if (!searching) {
+                @for (user of users; track user._id) {
+                    <div class="friends__friend">
+                        <div class="friend__info">
+                            <div style="position: relative;">
+                                <img class="friend__pic" [src]="user.profilePic" [alt]="'Foto de ' + user.username">
+                                @if (user.active) {
+                                    <span class="friend__active"></span>
+                                }
+                            </div>
+                            <div style="display: flex; flex-direction: column; justify-content: center;">
+                                <p class="friend__name">{{ user.username }}</p>
+                                @if (user.active) {
+                                    <p class="friend__activeMsg">Activo/a ahora</p>
+                                }
+                            </div>
+                        </div>
+                        @if (mode == 1) {
+                            @if (user.is_friend) {
+                                <a [routerLink]="['/profile', user._id]" (click)="cerrarLista()" class="friend__profileBtn">Perfil</a>
+                            }@else {
+                                @if (addingFriend) {
+                                    <app-loader2 [color]="'black'" style="transform: translateX(-50px);"></app-loader2>
+                                }@else {
+                                    <button [disabled]="addingFriend" class="friend__addFriendBtn" (click)="addFriend(user._id)">Añadir amigo</button>
+                                }
+                            }
+                        }@else {
+                            <button #inviteBtn (click)="inviteUser(user._id, inviteBtn)" class="friend__inviteBtn">Invitar</button>
+                        }
+                    </div>
+                }@empty {
+                    <p style="text-align: center; margin-top: 10px;">No se ha encontrado ningún usuario.</p>
+                }
+            }@else {
+                <app-loader2></app-loader2>
+            }
+        </div>
+    }
+
+</div>

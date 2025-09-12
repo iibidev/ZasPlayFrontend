@@ -1,0 +1,86 @@
+.back{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    opacity: 0;
+    animation: opacity .4s ease-out forwards;
+}
+
+.gameCard{
+    width: 90%;
+    max-width: 500px;
+    max-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border-radius: 15px;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    animation: appear .4s ease-out forwards;
+}
+
+.gameCard__info{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.574);
+    text-align: center;
+}
+
+.gameCard__icon{
+    width: 100px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.gameCard__name{
+    margin-top: 15px;
+}
+
+.gameCard__desc{
+    margin-top: 10px;
+}
+
+.gameCard__link{
+    all: unset;
+    padding: 10px 30px;
+    border-radius: 10px;
+    margin-top: 40px;
+    background: var(--gradient-neon);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.567);
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+@keyframes opacity {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes appear {
+    from{
+        transform: translate(-50%, -50%) scale(0);
+    }
+    to{
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
