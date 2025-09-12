@@ -14,7 +14,7 @@ export class UserService {
   user = signal<User | null>(null);
   
   constructor(){
-    if(localStorage.getItem("token")){
+    if(!localStorage.getItem("token")){
       this.http.get<string>(env.BACKURL + "/auth/get-cookie", { withCredentials: true }).subscribe({
         next: token =>{
           if(token){
