@@ -58,6 +58,7 @@ export class Profile implements OnInit{
   }
 
   logout(){
+    localStorage.removeItem("token");
     window.location.href = env.BACKURL + "/auth/logout";
   }
 
