@@ -23,7 +23,8 @@ export class UserService {
           }
         },
         error: err =>{
-          console.log(err);    
+          console.log(err);
+          window.location.href = env.BACKURL + "/auth/login";    
         }
       });
     }else{
