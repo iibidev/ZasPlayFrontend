@@ -19,16 +19,7 @@ export class UserService {
         next: token =>{
           if(token){
             localStorage.setItem("token", token);
-            this.http.get(env.BACKURL + "/auth/myInfo", { withCredentials: true }).subscribe({
-              next: (data: any) =>{
-                if(data.ok){
-                  this.user.set(data.user);
-                }
-              },
-              error: err =>{
-                console.log(err);
-              }
-            });
+            this.getUserinfo();
           }
         },
         error: err =>{
@@ -36,9 +27,22 @@ export class UserService {
         }
       });
     }else{
-      window.location.href = env.BACKURL + "/auth/login";
+      this.getUserinfo();
     }
     
+  }
+
+  getUserinfo(){
+    this.http.get(env.BACKURL + "/auth/myInfo", { withCredentials: true }).subscribe({
+      next: (data: any) =>{
+        if(data.ok){
+          this.user.set(data.user);
+        }
+      },
+      error: err =>{
+        console.log(err);
+      }
+    });
   }
 
   getProfile(id: string): Observable<Profile>{
