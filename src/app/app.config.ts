@@ -2,14 +2,17 @@ import { ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners, provi
 import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { AuthInterceptorFn } from './interceptors/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withViewTransitions()),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([AuthInterceptorFn])
+    ),
     { provide: LOCALE_ID, useValue: 'es-ES' }
   ]
 };
