@@ -1,3 +1,3 @@
 export const env = {
-    BACKURL: "http://localhost:3000"
+    BACKURL: "https://zasplaybackend.onrender.com"
 }
