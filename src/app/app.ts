@@ -35,7 +35,7 @@ export class App implements OnInit{
     this.router.events.pipe(filter(evt => evt instanceof NavigationEnd)).subscribe(event =>{
       this.currentUrl = event.url;
 
-      if(this.currentUrl.includes("/games/")){
+      if(this.currentUrl.includes("/games/") || this.currentUrl.includes("/login") || this.currentUrl.includes("/register")){
         this.showHeader = false;
       }else{
         this.showHeader = true;
