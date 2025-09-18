@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Profile as ProfileModel} from '../models/profile.model';
 import { DatePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
@@ -24,6 +24,7 @@ export class Profile implements OnInit{
   userService = inject(UserService);
   friendService = inject(FriendService);
   activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
   title = inject(Title);
   perfil!: ProfileModel;
   is_toggle: boolean = false;
@@ -59,10 +60,10 @@ export class Profile implements OnInit{
 
   logout(){
     localStorage.removeItem("token");
-    window.location.href = env.BACKURL + "/auth/logout";
+    this.router.navigate(["login"]);
   }
 
   edit(){
-    window.location.href = env.BACKURL + "/auth/edit";
+    this.userService.goEditProfile();
   }
 }

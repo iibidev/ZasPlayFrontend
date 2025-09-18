@@ -4,6 +4,7 @@ import { env } from '../../environments/environment';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 import { Profile } from '../models/profile.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +12,28 @@ import { Profile } from '../models/profile.model';
 export class UserService {
 
   private http = inject(HttpClient);
+  private router = inject(Router);
   user = signal<User | null>(null);
   
   constructor(){
-    if(!localStorage.getItem("token")){
-      this.http.get<string>(env.BACKURL + "/auth/get-cookie", { withCredentials: true }).subscribe({
-        next: token =>{
-          if(token){
-            localStorage.setItem("token", token);
-            this.getUserinfo();
-          }
-        },
-        error: err =>{
-          console.log(err);
-          window.location.href = env.BACKURL + "/auth/login";    
-        }
-      });
-    }else{
+    if(localStorage.getItem("token")){
       this.getUserinfo();
+    }else{
+      this.router.navigate(["login"]);
     }
     
+  }
+
+  goEditProfile(){
+    this.http.post(env.BACKURL + "/auth/edit", ({ userId: this.user()!._id, token: localStorage.getItem("token") })).subscribe({
+      next: data =>{
+
+      },
+      error: err =>{
+        console.log(err);
+        
+      }
+    });
   }
 
   getUserinfo(){
@@ -42,6 +45,7 @@ export class UserService {
       },
       error: err =>{
         console.log(err);
+        this.router.navigate(["login"]);
       }
     });
   }
