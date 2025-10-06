@@ -45,6 +45,7 @@ export class UserService {
       },
       error: err =>{
         console.log(err);
+        localStorage.removeItem("token");
         this.router.navigate(["login"]);
       }
     });
