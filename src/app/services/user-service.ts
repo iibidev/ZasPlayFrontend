@@ -24,18 +24,6 @@ export class UserService {
     
   }
 
-  goEditProfile(){
-    this.http.post(env.BACKURL + "/auth/edit", ({ userId: this.user()!._id, token: localStorage.getItem("token") })).subscribe({
-      next: data =>{
-
-      },
-      error: err =>{
-        console.log(err);
-        
-      }
-    });
-  }
-
   getUserinfo(){
     this.http.get(env.BACKURL + "/auth/myInfo", { withCredentials: true }).subscribe({
       next: (data: any) =>{
@@ -49,6 +37,18 @@ export class UserService {
         this.router.navigate(["login"]);
       }
     });
+  }
+
+  updateAvatar(avatar: string): Observable<any>{
+    return this.http.put(env.BACKURL + "/auth/updateAvatar", { avatar });
+  }
+
+  updateProfilePic(formData: FormData): Observable<any>{
+    return this.http.put(env.BACKURL + "/auth/updatePic", formData);
+  }
+
+  updateUser(username: string): Observable<any>{
+    return this.http.put(env.BACKURL + "/auth/update", { username });
   }
 
   getProfile(id: string): Observable<Profile>{
