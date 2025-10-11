@@ -9,13 +9,13 @@ import { Loader } from "../loader/loader";
 import { FriendService } from '../services/friend-service';
 import { Loader2 } from "../shared/loader2/loader2";
 import { Title } from '@angular/platform-browser';
-import { env } from '../../environments/environment';
+import { Edit } from "./edit/edit";
 
 registerLocaleData(localeEs);
 
 @Component({
   selector: 'app-profile',
-  imports: [DatePipe, Loader, Loader2],
+  imports: [DatePipe, Loader, Loader2, Edit],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
@@ -28,6 +28,7 @@ export class Profile implements OnInit{
   title = inject(Title);
   perfil!: ProfileModel;
   is_toggle: boolean = false;
+  showEditProfile: boolean = false;
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params =>{
@@ -64,6 +65,6 @@ export class Profile implements OnInit{
   }
 
   edit(){
-    this.userService.goEditProfile();
+    this.showEditProfile = true;
   }
 }

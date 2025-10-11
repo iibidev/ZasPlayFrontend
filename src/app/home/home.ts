@@ -16,7 +16,7 @@ export class Home implements OnInit, AfterViewChecked{
   gameService = inject(GameService);
   bannerGames!: Game[];
   topGames!: any[];
-  gamesInDevelopment!: Game[];
+  gamesInDevelopment: Game[] = [];
   selectedGame!: Game;
   showGameInfo: boolean = false;
   checkBanner: boolean = false;
